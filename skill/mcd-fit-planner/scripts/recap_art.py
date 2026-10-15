@@ -6,7 +6,7 @@ from html import escape
 from pathlib import Path
 
 WIDTH, HEIGHT = 1080, 1780
-INK, MUTED, RED, PAPER, SAGE = "#211e19", "#736e63", "#d73a27", "#f5f1e7", "#dde5d7"
+INK, MUTED, RED, PAPER = "#211e19", "#736e63", "#d73a27", "#f5f1e7"
 FONT = "'Microsoft YaHei','PingFang SC','Segoe UI',sans-serif"
 
 
@@ -77,14 +77,14 @@ def render_svg(recap, demo=False):
     text(label_x, 446, "个有记录的吃麦日", 27, weight=600)
     text(label_x, 485, "从吃了什么，到为什么选它。", 21, MUTED)
     text(56, 548, "01 — THE LITTLE THINGS WE KEEP", 15, MUTED, extra='letter-spacing="2"')
-    # Spending is a bold full-width chapter, rather than a dashboard widget.
-    box(0, 580, WIDTH, 304, RED)
-    text(56, 630, "记在这份账本里的净支出", 24, PAPER, 500)
+    rule(580)
+    text(56, 630, "记在这份账本里的净支出", 24, MUTED, 500)
     amount = "¥" + money(bill["net_cents"])
-    text(48, 765, amount, min(142, 960 / (len(amount) * .65)), PAPER, 900, 'letter-spacing="-6"')
-    text(58, 833, f"付款 {bill['paid_order_count']} 单", 25, PAPER, 700)
-    text(370, 833, f"单均净支出 ¥{money(bill['average_net_cents'])}", 23, PAPER)
-    text(1024, 833, f"已退 ¥{money(bill['refund_cents'])}", 23, PAPER, extra='text-anchor="end"')
+    text(48, 765, amount, min(142, 960 / (len(amount) * .65)), INK, 500, 'font-family="Georgia,serif" letter-spacing="-6"')
+    text(58, 833, f"付款 {bill['paid_order_count']} 单", 25, INK, 600)
+    text(370, 833, f"单均净支出 ¥{money(bill['average_net_cents'])}", 23, INK)
+    text(1024, 833, f"已退 ¥{money(bill['refund_cents'])}", 23, INK, extra='text-anchor="end"')
+    rule(884)
     text(56, 938, "02 / 常点的那一份", 19, MUTED)
     favorite = f["favorite"]
     if favorite:
@@ -95,15 +95,16 @@ def render_svg(recap, demo=False):
     else:
         text(52, 1021, "下一份喜欢，还没写进来。", 48, weight=800)
         text(56, 1080, "有餐品明细的付款记录，会在这里留下名字。", 23, MUTED)
-    box(0, 1172, WIDTH, 333, SAGE)
+    rule(1172)
     text(56, 1225, "03 / 和当时的饮食目标对照一下", 20)
     value = "—" if f["percent"] is None else f"{f['percent']:g}%"
-    text(48, 1382, value, 142, weight=900, extra='letter-spacing="-7"')
+    text(48, 1382, value, 142, weight=400, extra='font-family="Georgia,serif" letter-spacing="-7"')
     text(58, 1437, f"可核实达标率 · 分母 {assessment['verified_count']} 餐", 22)
     text(610, 1295, f"达标 {counts['within']} 餐", 32, weight=800)
     text(610, 1344, f"超出 {f['above']} 餐 / 不足 {f['below']} 餐", 24)
     text(610, 1390, f"估算达标 {counts['estimated_within']} 餐", 23)
     text(610, 1435, f"待核实或缺目标 {f['unassessed']} 餐", 22, MUTED)
+    rule(1505)
     daily = recap["daily_assessment"]
     text(56, 1554, f"全天录全 {daily['total']} 天，其中达标 {daily['counts']['within']} 天；其余见网页。", 22, weight=600)
     text(56, 1602, "实际吃麦摄入", 19, MUTED)

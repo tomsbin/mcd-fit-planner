@@ -51,7 +51,7 @@ def render_html(recap, svg, demo=False):
     bars = ''.join(f'<span class="spend-bar" style="height:{max(2, b["net_cents"] / maximum * 100):.2f}%" title="{escape(b["label"])}{("日" if recap["kind"] == "month" else "月")}：¥{money(b["net_cents"])}"></span>' for b in recap["spending_buckets"])
     favorites = ''.join(f'<li><span class="rank">{i + 1:02d}</span><span class="name">{escape(item["name"])}</span><span class="quantity">× {item["quantity"]:g}</span></li>' for i, item in enumerate(recap["favorites"]))
     nutrient_cells = ''.join(f'<div><span>{label} / {unit}</span><strong>{escape(nutrient_text(recap["mcd_intake"], n))}</strong></div>' for n, label, unit in [('kcal','热量','kcal'),('protein_g','蛋白质','g'),('carb_g','碳水','g'),('fat_g','脂肪','g')])
-    strip = ''.join(f'<span style="flex:{value};background:{color}"></span>' for value, color in [(counts["within"], "#35754b"), (counts["estimated_within"], "#869872"), (counts["above"] + counts["below"] + counts["mixed"], "#b3422f"), (facts["unassessed"], "#aeb8a6")] if value)
+    strip = ''.join(f'<span style="flex:{value};background:{color}"></span>' for value, color in [(counts["within"], "#514337"), (counts["estimated_within"], "#a68e75"), (counts["above"] + counts["below"] + counts["mixed"], "#c6b39d"), (facts["unassessed"], "#e0d5c6")] if value)
     favorite = facts["favorite"]
     values = {"period": recap["period"], "period_label": facts["period_label"], "edition": facts["edition"],
         "this_period": facts["this_period"], "year": recap["period"][:4],

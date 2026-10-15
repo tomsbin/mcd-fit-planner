@@ -13,24 +13,26 @@
 <text x="224" y="446" font-size="27" fill="#211e19" font-weight="600" >个有记录的吃麦日</text>
 <text x="224" y="485" font-size="21" fill="#736e63" font-weight="400" >从吃了什么，到为什么选它。</text>
 <text x="56" y="548" font-size="15" fill="#736e63" font-weight="400" letter-spacing="2">01 — THE LITTLE THINGS WE KEEP</text>
-<rect x="0" y="580" width="1080" height="304" fill="#d73a27"/>
-<text x="56" y="630" font-size="24" fill="#f5f1e7" font-weight="500" >记在这份账本里的净支出</text>
-<text x="48" y="765" font-size="142" fill="#f5f1e7" font-weight="900" letter-spacing="-6">¥741.60</text>
-<text x="58" y="833" font-size="25" fill="#f5f1e7" font-weight="700" >付款 33 单</text>
-<text x="370" y="833" font-size="23" fill="#f5f1e7" font-weight="400" >单均净支出 ¥22.47</text>
-<text x="1024" y="833" font-size="23" fill="#f5f1e7" font-weight="400" text-anchor="end">已退 ¥89.30</text>
+<path d="M56 580H1024" stroke="#d7d0c4"/>
+<text x="56" y="630" font-size="24" fill="#736e63" font-weight="500" >记在这份账本里的净支出</text>
+<text x="48" y="765" font-size="142" fill="#211e19" font-weight="500" font-family="Georgia,serif" letter-spacing="-6">¥741.60</text>
+<text x="58" y="833" font-size="25" fill="#211e19" font-weight="600" >付款 33 单</text>
+<text x="370" y="833" font-size="23" fill="#211e19" font-weight="400" >单均净支出 ¥22.47</text>
+<text x="1024" y="833" font-size="23" fill="#211e19" font-weight="400" text-anchor="end">已退 ¥89.30</text>
+<path d="M56 884H1024" stroke="#d7d0c4"/>
 <text x="56" y="938" font-size="19" fill="#736e63" font-weight="400" >02 / 常点的那一份</text>
 <text x="52" y="1021" font-size="54" fill="#211e19" font-weight="900" >经典汉堡三件套</text>
 <text x="56" y="1072" font-size="24" fill="#211e19" font-weight="400" >在已付款且未全退的订单里，你点了 9 份。</text>
 <text x="56" y="1126" font-size="21" fill="#736e63" font-weight="400" >02  鸡肉汉堡轻食搭配 ×9   /   03  双层汉堡套餐 ×6</text>
-<rect x="0" y="1172" width="1080" height="333" fill="#dde5d7"/>
+<path d="M56 1172H1024" stroke="#d7d0c4"/>
 <text x="56" y="1225" font-size="20" fill="#211e19" font-weight="400" >03 / 和当时的饮食目标对照一下</text>
-<text x="48" y="1382" font-size="142" fill="#211e19" font-weight="900" letter-spacing="-7">52.4%</text>
+<text x="48" y="1382" font-size="142" fill="#211e19" font-weight="400" font-family="Georgia,serif" letter-spacing="-7">52.4%</text>
 <text x="58" y="1437" font-size="22" fill="#211e19" font-weight="400" >可核实达标率 · 分母 21 餐</text>
 <text x="610" y="1295" font-size="32" fill="#211e19" font-weight="800" >达标 11 餐</text>
 <text x="610" y="1344" font-size="24" fill="#211e19" font-weight="400" >超出 9 餐 / 不足 6 餐</text>
 <text x="610" y="1390" font-size="23" fill="#211e19" font-weight="400" >估算达标 0 餐</text>
 <text x="610" y="1435" font-size="22" fill="#736e63" font-weight="400" >待核实或缺目标 5 餐</text>
+<path d="M56 1505H1024" stroke="#d7d0c4"/>
 <text x="56" y="1554" font-size="22" fill="#211e19" font-weight="600" >全天录全 12 天，其中达标 9 天；其余见网页。</text>
 <text x="56" y="1602" font-size="19" fill="#736e63" font-weight="400" >实际吃麦摄入</text>
 <text x="56" y="1642" font-size="18" fill="#736e63" font-weight="400" >热量 / kcal</text>
