@@ -1,0 +1,5 @@
+# Merge this section into your own ~/.codex/config.toml; do not replace other settings.
+# Set MCD_MCP_TOKEN locally before starting Codex. Never put a real token in this file.
+[mcp_servers.mcd]
+url = "https://mcp.mcd.cn"
+bearer_token_env_var = "MCD_MCP_TOKEN"

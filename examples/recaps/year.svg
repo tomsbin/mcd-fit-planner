@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1780" viewBox="0 0 1080 1780" role="img" aria-labelledby="title desc">
+<title id="title">我的吃麦手账</title><desc id="desc">消费、实际摄入与已记录目标的月度或年度总结。</desc>
+<g font-family="'Microsoft YaHei','PingFang SC','Segoe UI',sans-serif">
+<rect x="0" y="0" width="1080" height="1780" rx="0" fill="#fcf5e6" />
+<circle cx="1030" cy="80" r="300" fill="#ffde6a" opacity=".38"/>
+<circle cx="-30" cy="1640" r="220" fill="#f3dfbb" opacity=".5"/>
+<rect x="56" y="48" width="48" height="48" rx="15" fill="#cc3c2f" />
+<text x="80" y="81" font-size="25" fill="#fff8e9" font-weight="700" text-anchor="middle">麦</text>
+<text x="120" y="80" font-size="24" fill="#342317" font-weight="700" >我的吃麦手账</text>
+<text x="1024" y="79" font-size="17" fill="#342317" font-weight="700" text-anchor="end" letter-spacing="2">MCD FIT PLANNER</text>
+<text x="56" y="142" font-size="23" fill="#786857" font-weight="400" >2025 年  /  年度回味</text>
+<text x="50" y="226" font-size="64" fill="#342317" font-weight="800" >这一年，</text>
+<text x="50" y="306" font-size="64" fill="#342317" font-weight="800" >每一口都有数。</text>
+<g transform="translate(762 165) rotate(-9 105 85)">
+<ellipse cx="110" cy="157" rx="117" ry="19" fill="#decda9"/>
+<path d="M0 70 Q12 -15 110 -15 Q208 -15 220 70Z" fill="#eaa844" stroke="#342317" stroke-width="5"/>
+<path d="M48 30l8 -4" stroke="#fff2cc" stroke-width="5" stroke-linecap="round"/>
+<path d="M92 14l8 -4" stroke="#fff2cc" stroke-width="5" stroke-linecap="round"/>
+<path d="M143 27l8 -4" stroke="#fff2cc" stroke-width="5" stroke-linecap="round"/>
+<path d="M181 45l8 -4" stroke="#fff2cc" stroke-width="5" stroke-linecap="round"/>
+<path d="M114 46l8 -4" stroke="#fff2cc" stroke-width="5" stroke-linecap="round"/>
+<path d="M1 78 Q30 65 58 82 T111 80 T166 78 T220 79 L215 98 L4 98Z" fill="#7b9d42" stroke="#342317" stroke-width="4"/>
+<rect x="3" y="96" width="216" height="25" rx="10" fill="#713c27" />
+<path d="M3 94L78 119L113 99L192 115L218 94Z" fill="#ffd13c" stroke="#342317" stroke-width="3"/>
+<path d="M3 124H218Q215 158 190 158H31Q8 158 3 124Z" fill="#eaa844" stroke="#342317" stroke-width="5"/>
+</g>
+<rect x="784" y="318" width="240" height="34" rx="17" fill="#fff8e9" />
+<text x="904" y="341" font-size="16" fill="#cc3c2f" font-weight="700" text-anchor="middle">合成示例 · 非个人记录</text>
+<rect x="56" y="374" width="968" height="250" rx="30" fill="#342317" />
+<text x="88" y="423" font-size="23" fill="#efe0c6" font-weight="400" >这一期，吃麦净支出</text>
+<text x="86" y="532" font-size="84" fill="#fff6df" font-weight="800" >¥741.60</text>
+<text x="90" y="583" font-size="20" fill="#e2c6a6" font-weight="400" >已付 ¥830.90   /   已退 ¥89.30</text>
+<path d="M724 420V580" stroke="#715943"/>
+<text x="766" y="436" font-size="20" fill="#e2c6a6" font-weight="400" >付款订单</text>
+<text x="766" y="495" font-size="52" fill="#ffce32" font-weight="800" >33</text>
+<text x="766" y="541" font-size="18" fill="#fff6df" font-weight="400" >单均净支出 ¥22.47</text>
+<text x="766" y="576" font-size="18" fill="#e2c6a6" font-weight="400" >待付款 3 单 · 不计支出</text>
+<rect x="56" y="652" width="312" height="146" rx="24" fill="#fffdf7" />
+<text x="79" y="694" font-size="19" fill="#786857" font-weight="400" >实际吃麦热量 · kcal</text>
+<text x="79" y="753" font-size="32" fill="#342317" font-weight="800" >≥17,090 · 待补全</text>
+<rect x="384" y="652" width="312" height="146" rx="24" fill="#fffdf7" />
+<text x="407" y="694" font-size="19" fill="#786857" font-weight="400" >实际吃麦蛋白质 · g</text>
+<text x="407" y="753" font-size="32" fill="#342317" font-weight="800" >约 1,035</text>
+<rect x="712" y="652" width="312" height="146" rx="24" fill="#fffdf7" />
+<text x="735" y="694" font-size="19" fill="#786857" font-weight="400" >记录了吃麦的日子</text>
+<text x="735" y="753" font-size="32" fill="#342317" font-weight="800" >30 天</text>
+<text x="56" y="833" font-size="17" fill="#786857" font-weight="400" >按实际食用份数统计；未知仅列已知下限，估算保留区间。</text>
+<rect x="56" y="872" width="436" height="338" rx="26" fill="#fffdf7" />
+<text x="83" y="918" font-size="28" fill="#342317" font-weight="800" >你的常点榜</text>
+<text x="83" y="951" font-size="17" fill="#786857" font-weight="400" >购买份数，不等于已经吃掉</text>
+<rect x="83" y="983" width="34" height="34" rx="11" fill="#ffce32" />
+<text x="100" y="1008" font-size="18" fill="#342317" font-weight="700" text-anchor="middle">1</text>
+<text x="131" y="1008" font-size="21" fill="#342317" font-weight="600" >经典汉堡三件套</text>
+<text x="461" y="1033" font-size="17" fill="#786857" font-weight="400" text-anchor="end">× 9</text>
+<rect x="83" y="1048" width="34" height="34" rx="11" fill="#f3ead8" />
+<text x="100" y="1073" font-size="18" fill="#342317" font-weight="700" text-anchor="middle">2</text>
+<text x="131" y="1073" font-size="21" fill="#342317" font-weight="600" >鸡肉汉堡轻食搭配</text>
+<text x="461" y="1098" font-size="17" fill="#786857" font-weight="400" text-anchor="end">× 9</text>
+<rect x="83" y="1113" width="34" height="34" rx="11" fill="#f3ead8" />
+<text x="100" y="1138" font-size="18" fill="#342317" font-weight="700" text-anchor="middle">3</text>
+<text x="131" y="1138" font-size="21" fill="#342317" font-weight="600" >双层汉堡套餐</text>
+<text x="461" y="1163" font-size="17" fill="#786857" font-weight="400" text-anchor="end">× 6</text>
+<rect x="512" y="872" width="512" height="338" rx="26" fill="#eaf0df" />
+<text x="540" y="918" font-size="28" fill="#342317" font-weight="800" >吃麦餐食 × 我的目标</text>
+<text x="540" y="951" font-size="17" fill="#786857" font-weight="400" >对照录入时的训练 / 高碳 / 休息目标</text>
+<circle cx="614" cy="1047" r="58" fill="none" stroke="#d2dec4" stroke-width="13"/>
+<circle cx="614" cy="1047" r="58" fill="none" stroke="#317757" stroke-width="13" stroke-dasharray="190.95870000000002 364.425" transform="rotate(-90 614 1047)" stroke-linecap="round"/>
+<text x="614" y="1057" font-size="32" fill="#317757" font-weight="800" text-anchor="middle">52.4%</text>
+<text x="614" y="1140" font-size="17" fill="#786857" font-weight="400" text-anchor="middle">可核实达标率</text>
+<text x="710" y="1005" font-size="19" fill="#317757" font-weight="700" >达标 11 餐  ·  估算达标 0</text>
+<text x="710" y="1047" font-size="19" fill="#cc3c2f" font-weight="700" >超出 9 餐  ·  不足 6 餐</text>
+<text x="710" y="1089" font-size="19" fill="#786857" font-weight="400" >待核实 / 未设目标 5 餐</text>
+<text x="540" y="1180" font-size="16" fill="#786857" font-weight="400" >达标率分母 21 餐；缺失与估算不计入。</text>
+<rect x="56" y="1234" width="968" height="92" rx="22" fill="#f3e7cf" />
+<text x="82" y="1271" font-size="23" fill="#342317" font-weight="700" >全天核对：录全 12 天 · 达标 9 天 · 估算达标 2 天</text>
+<text x="82" y="1302" font-size="18" fill="#786857" font-weight="400" >超出 0 天 · 不足 0 天；其他结果见明细。另有 18 个记录日未确认录全。</text>
+<rect x="56" y="1350" width="968" height="240" rx="26" fill="#fffdf7" />
+<text x="83" y="1394" font-size="26" fill="#342317" font-weight="800" >这一期的吃麦节奏</text>
+<text x="994" y="1394" font-size="18" fill="#786857" font-weight="400" text-anchor="end">每月净支出</text>
+<rect x="87.0" y="1421.0" width="67.0" height="104.0" rx="4" fill="#ffce32" />
+<text x="120.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">1</text>
+<rect x="162.0" y="1438.3972939729397" width="67.0" height="86.60270602706028" rx="4" fill="#ffce32" />
+<text x="195.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">2</text>
+<rect x="237.0" y="1424.8376383763837" width="67.0" height="100.16236162361623" rx="4" fill="#ffce32" />
+<text x="270.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">3</text>
+<rect x="312.0" y="1499.5436654366545" width="67.0" height="25.45633456334563" rx="4" fill="#ffce32" />
+<text x="345.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">4</text>
+<rect x="387.0" y="1427.3960639606396" width="67.0" height="97.60393603936039" rx="4" fill="#ffce32" />
+<text x="420.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">5</text>
+<rect x="462.0" y="1421.0" width="67.0" height="104.0" rx="4" fill="#ffce32" />
+<text x="495.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">6</text>
+<rect x="537.0" y="1444.7933579335793" width="67.0" height="80.20664206642067" rx="4" fill="#ffce32" />
+<text x="570.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">7</text>
+<rect x="612.0" y="1490.589175891759" width="67.0" height="34.41082410824109" rx="4" fill="#ffce32" />
+<text x="645.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">8</text>
+<rect x="687.0" y="1435.838868388684" width="67.0" height="89.16113161131612" rx="4" fill="#ffce32" />
+<text x="720.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">9</text>
+<rect x="762.0" y="1427.3960639606396" width="67.0" height="97.60393603936039" rx="4" fill="#ffce32" />
+<text x="795.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">10</text>
+<rect x="837.0" y="1427.3960639606396" width="67.0" height="97.60393603936039" rx="4" fill="#ffce32" />
+<text x="870.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">11</text>
+<rect x="912.0" y="1493.1476014760149" width="67.0" height="31.85239852398524" rx="4" fill="#ffce32" />
+<text x="945.5" y="1558" font-size="16" fill="#786857" font-weight="400" text-anchor="middle">12</text>
+<text x="56" y="1631" font-size="23" fill="#342317" font-weight="700" >小账本，只写真实发生的事。</text>
+<text x="56" y="1669" font-size="18" fill="#786857" font-weight="400" >本地已记录数据，不代表完整历史。账单不推断摄入，退款不删除饮食。</text>
+<text x="56" y="1700" font-size="17" fill="#786857" font-weight="400" >未标明食物来源的记录 0 条，未计入吃麦摄入；一餐达标不等于全天或训练效果达标。</text>
+<text x="56" y="1745" font-size="14" fill="#786857" font-weight="400" letter-spacing="2">MCD FIT PLANNER  /  PERSONAL FOOD JOURNAL</text>
+<text x="1024" y="1745" font-size="15" fill="#786857" font-weight="400" text-anchor="end">非麦当劳官方出品</text>
+</g></svg>

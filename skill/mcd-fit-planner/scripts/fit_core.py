@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import calendar
 import csv
+import copy
 from collections import Counter
 from contextlib import nullcontext
 import hashlib
@@ -179,9 +180,13 @@ class Store:
         return [self.plan((date.fromisoformat(start) + timedelta(days=i)).isoformat()) for i in range(days)]
 
     def record_intake(self, entry):
+        entry = copy.deepcopy(entry)
         date.fromisoformat(entry["day"])
         if not entry.get("id") or not entry.get("meal") or not entry.get("items"):
             raise ValueError("饮食记录需要 id / meal / items")
+        if entry.get("venue", "unspecified") not in ("mcdonalds", "other", "unspecified"):
+            raise ValueError("venue 应为 mcdonalds / other / unspecified")
+        entry.setdefault("venue", "unspecified")
         for item in entry["items"]:
             if not item.get("name") or not item.get("source"):
                 raise ValueError("每项饮食需要 name 和 source")
@@ -189,8 +194,25 @@ class Store:
             for nutrient in NUTRIENTS:
                 if item.get("nutrition", {}).get(nutrient) is not None:
                     number(item["nutrition"][nutrient], nutrient)
+            ns.bounds(item)
+        previous = self.db.execute("SELECT payload FROM intake WHERE id=?", (entry["id"],)).fetchone()
+        previous = json.loads(previous[0]) if previous else None
+        # A correction keeps its historical target; supplied contexts are never trusted.
+        if previous and (previous["day"], previous["meal"]) == (entry["day"], entry["meal"]):
+            entry["assessment_context"] = previous.get("assessment_context")
+        else:
+            try:
+                plan = self.plan(entry["day"])
+                entry["assessment_context"] = {"template": plan["active_template"],
+                    "meal_target": plan["template"].get("meals", {}).get(entry["meal"], {}).get("target", {}),
+                    "daily_target": plan["template"].get("daily", {}),
+                    "captured_at": datetime.now(CN_TIME).isoformat()}
+            except ValueError:
+                entry["assessment_context"] = None
         # Updating the same id is an explicit correction, not another meal.
         with self.db:
+            for changed_day in {entry["day"], previous["day"] if previous else entry["day"]}:
+                self.db.execute("DELETE FROM settings WHERE key=?", ("closed:" + changed_day,))
             self.db.execute("INSERT OR REPLACE INTO intake VALUES (?,?,?,?)", (entry["id"], entry["day"], entry["meal"], json.dumps(entry, ensure_ascii=False)))
             self.log("intake", {"id": entry["id"], "day": entry["day"]})
         return self.day_intake(entry["day"])
@@ -221,6 +243,21 @@ class Store:
             self.db.execute("INSERT OR REPLACE INTO settings VALUES (?,?)", ("complete:" + day, json.dumps(complete)))
             self.log("coverage", {"day": day, "complete": complete})
         return self.day_intake(day)
+
+    def close_day(self, day, complete):
+        """Explicit end-of-day coverage, separate from the intraday remainder flag."""
+        current = self.day_intake(day)
+        if complete and (day > today() or not any(i["quantity"] > 0 for e in current["entries"] for i in e["items"])):
+            raise ValueError("仅能确认有实际饮食记录的当天或过去日期")
+        payload = {"entries_hash": digest(current["entries"]),
+                   "confirmed_at": datetime.now(CN_TIME).isoformat()}
+        with self.db:
+            if complete:
+                self.db.execute("INSERT OR REPLACE INTO settings VALUES (?,?)", ("closed:" + day, json.dumps(payload)))
+            else:
+                self.db.execute("DELETE FROM settings WHERE key=?", ("closed:" + day,))
+            self.log("close_day", {"day": day, "complete": complete})
+        return {"day": day, "full_day_confirmed": complete}
 
     def target(self, day, meal):
         plan, intake = self.plan(day), self.day_intake(day)
@@ -885,6 +922,7 @@ def main():
     p = sub.add_parser("schedule"); p.add_argument("--date", default=today()); p.add_argument("--days", type=int, default=7)
     p = sub.add_parser("override"); p.add_argument("--date", default=today()); p.add_argument("--mode", choices=["rest", "skip", "normal"], required=True)
     p = sub.add_parser("coverage"); p.add_argument("--date", default=today()); p.add_argument("--complete", choices=["yes", "no"], required=True)
+    p = sub.add_parser("close-day"); p.add_argument("--date", default=today()); p.add_argument("--complete", choices=["yes", "no"], required=True)
     for command in ("record-intake", "record-bill", "import-bills"):
         p = sub.add_parser(command); p.add_argument("--file", required=True)
     p = sub.add_parser("recommend"); p.add_argument("--date", default=today()); p.add_argument("--meal", choices=["breakfast", "lunch", "dinner"], required=True); p.add_argument("--snapshot", required=True); p.add_argument("--quotes"); p.add_argument("--require", nargs="*"); p.add_argument("--exclude", nargs="*")
@@ -905,6 +943,7 @@ def main():
         elif args.command == "schedule": result = store.schedule(args.date, args.days)
         elif args.command == "override": result = store.override(args.date, args.mode)
         elif args.command == "coverage": result = store.mark_complete(args.date, args.complete == "yes")
+        elif args.command == "close-day": result = store.close_day(args.date, args.complete == "yes")
         elif args.command == "intake-day": result = store.day_intake(args.date)
         elif args.command == "record-intake": result = store.record_intake(read_json(args.file))
         elif args.command == "record-bill": result = store.bill(read_json(args.file))

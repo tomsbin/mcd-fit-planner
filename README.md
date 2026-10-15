@@ -2,9 +2,9 @@
 
 **把训练与饮食计划录入一次，之后直接问：今天吃哪份麦当劳套餐？**
 
-基于麦当劳中国官方 MCP 的 Agent Skill。默认优先比较套餐，同时看实际应付、热量、蛋白质、碳水和脂肪；支持临时休息顺延，以及长期保存在本机的月度、年度消费账本。
+基于麦当劳中国官方 MCP 的 Agent Skill。默认优先比较套餐，同时看实际应付、热量、蛋白质、碳水和脂肪；支持临时休息顺延、本地消费账本，以及月末／年末「吃麦手账」网页与分享长图。
 
-当前版本 **0.7.0**。适合已有饮食目标、希望减少每天重复选择和记录的人。兼容 WorkBuddy，以及支持 MCP 和本地 Python 技能的 Agent 宿主。
+当前版本 **0.8.0**。适合已有饮食目标、希望减少每天重复选择和记录的人。支持 WorkBuddy、Codex，以及具备 MCP 和本地 Python 执行能力的 DeepSeek Agent 宿主。
 
 ## 能做什么
 
@@ -18,6 +18,8 @@
 | 官方营养缺失 | Agent 主动查对应中国规格的公开来源，保留证据或估算区间；未知不当零 |
 | 薯条只吃半份 | 按实际摄入记录，订单购买份数与食用份数分开 |
 | 查询吃麦支出 | 合并本地账单，区分待支付、已支付和退款，支持月年统计及 CSV |
+| 月末／年末吃货总结 | 生成漂亮的离线网页、SVG 和 PNG 长图：净支出、常点榜、消费节奏与实际营养 |
+| 回看健身饮食目标 | 按历史训练／高碳／休息目标，区分达标、估算、超出、不足与未知；全天录全后单独核对 |
 
 套餐发现默认覆盖相关商品与限额内超值搭配。缺少相关套餐详情或可行套餐未核价时，不能进入下单预览；不能只勾“已检查”就放行。零元应付先列为待核实，不自动当成免费订单。
 
@@ -44,6 +46,35 @@ python -X utf8 demo.py
 
 其他宿主可使用通用包 `mcd-fit-planner-skill.zip`，或直接读取 [SKILL.md](skill/mcd-fit-planner/SKILL.md)。详细步骤见 [WorkBuddy 安装说明](skill/mcd-fit-planner/references/workbuddy-setup.md)。
 
+## Codex 与 DeepSeek Agent
+
+| 环境 | 接入方式 |
+|---|---|
+| Codex app／CLI／IDE | 将通用包的技能文件夹放入个人 `~/.agents/skills/` 或项目 `.agents/skills/`，合并 [MCP TOML 示例](examples/codex-config.example.toml) |
+| DeepSeek 模型的 Agent | 由宿主加载 SKILL.md、桥接官方 MCP、执行本地 Python；普通聊天窗口需先具备这些能力 |
+| 不接模型，仅做统计 | 直接运行本地脚本生成总结，无需模型 API Key 或 MCP Token |
+
+[完整接入与只读验收](skill/mcd-fit-planner/references/hosts.md)包含官方文档来源。当前已验证本地脚本和图片渲染，以及 WorkBuddy 官方 MCP 查询；DeepSeek API 端到端联调尚未验证。不会因安装技能替换宿主已有配置。
+
+## 月末／年末吃麦手账
+
+生成暖色手账网页和 **1080×1780 分享长图**，展示实际消费、购买常点榜、实际摄入与训练目标结果。网页支持结果筛选、每日明细和 PNG／SVG 下载；全部资源自包含，可离线打开。
+
+<a href="examples/recaps/month.png"><img src="examples/recaps/month.png" width="400" alt="月度吃麦手账合成示例"></a>
+<a href="examples/recaps/year.png"><img src="examples/recaps/year.png" width="400" alt="年度吃麦手账合成示例"></a>
+
+上图**全部为合成演示数据**，不含个人账本。下载 [月度网页](examples/recaps/month.html)／[年度网页](examples/recaps/year.html)后用浏览器打开；GitHub 文件页不直接运行 HTML。
+
+```powershell
+# 离线演示：不读取真实账户或账本
+python skill/mcd-fit-planner/scripts/period_recap.py --demo --period 2026-09 --output data/month.html --png data/month.png
+
+# 真实统计：只读现有账本，路径换成自己的固定位置
+python skill/mcd-fit-planner/scripts/period_recap.py --db "D:/my-mcd-data/planner.sqlite3" --period 2025 --output "D:/my-mcd-data/year.html" --svg "D:/my-mcd-data/year.svg" --png "D:/my-mcd-data/year.png"
+```
+
+Python 仅使用标准库；命令行 PNG 需要本机 Edge／Chrome，没有时可打开 HTML 下载图片。真实统计按实际食用份数计算，购买不等于摄入；目标使用录入时的快照，修改计划不追溯改判。估算和缺失不算可核实达标，一餐结果不等于全天结果，全天需用户确认吃喝已录全。高碳日检查碳水目标，不把低热量统一当作最好。详见 [总结图与统计口径](skill/mcd-fit-planner/references/period-recap.md)。
+
 ## 使用示例
 
 以下是功能示例，不是个人饮食处方；实际目标由使用者已有计划提供。
@@ -57,6 +88,8 @@ python -X utf8 demo.py
 > 这个搭配换饮料能省多少？热量、蛋白质、碳水和脂肪怎么变？
 
 > 薯条只吃了一半，记录实际摄入。这个月和今年吃麦当劳花了多少？
+
+> 生成上个月的吃麦手账，给我网页和分享长图。按我当时的训练计划看看哪些餐达标、哪些超了或蛋白质没吃够。
 
 整餐报告列出营养点值、估算区间或已知下限，注明来源；对照已录入的当日训练模板，说明符合、超出或不确定。成年男女群体参考会注明年龄、活动水平和标准版本，不替代个人目标。
 
@@ -84,7 +117,7 @@ python -X utf8 -m unittest discover -s tests
 python -X utf8 build.py
 ```
 
-当前 **206 项离线测试**覆盖循环顺延、营养区间、套餐自动发现及优先级、排除套餐变体、用券参数、零元报价隔离、预览确认、账本和导出。测试中的优惠价格与券码为合成数据；公开食品捕获样例不含账户信息，不能代表当前库存或价格。
+当前 **235 项离线测试**覆盖循环顺延、营养区间、套餐自动发现及优先级、排除套餐变体、用券参数、零元报价隔离、预览确认、账本和导出，以及月年总结、历史目标、全天确认、半份／估算／漏记、退款和只读输出保护。另已用真实浏览器验证网页筛选与 SVG／PNG 下载，图片尺寸为 1080×1780。测试中的优惠价格与券码为合成数据；公开食品捕获样例不含账户信息，不能代表当前库存或价格。
 
 已使用官方 MCP 完成真实营养、门店菜单、详情和计价查询。真实付款、券核销，以及外送、团餐和预约的线上交易未作为完成验证；相关参数链路有离线测试。价格结论只覆盖实际查询的候选，不保证全菜单、全渠道最低；小程序可见活动可能与 MCP 不同。
 
@@ -99,6 +132,8 @@ python -X utf8 build.py
 - [菜单、套餐与组件](skill/mcd-fit-planner/references/catalog-builder.md)
 - [营养来源与报告](skill/mcd-fit-planner/references/nutrition-report.md)
 - [MCP 编排及订单确认](skill/mcd-fit-planner/references/mcp-flow.md)
+- [Codex 与 DeepSeek Agent 接入](skill/mcd-fit-planner/references/hosts.md)
+- [月年总结图与统计口径](skill/mcd-fit-planner/references/period-recap.md)
 
 本项目采用 [MIT 许可](LICENSE)。优惠门槛解析改编自 MIT 授权的 `mcd-coupon-strategist`，来源、修改说明及完整许可见 [第三方声明](skill/mcd-fit-planner/references/third-party-notices.md)。
 

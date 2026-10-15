@@ -46,10 +46,12 @@ Profile 可加 `"nutrition_reference":{"age":35,"activity":"moderate"}` 保存�
 ## Intake
 
 ```json
-{"id":"2026-10-14-lunch-1","day":"2026-10-14","meal":"lunch","items":[{"name":"中薯条","quantity":0.5,"source":"official","nutrition":{"kcal":null,"protein_g":null,"carb_g":null,"fat_g":null}}]}
+{"id":"2026-10-14-lunch-1","day":"2026-10-14","meal":"lunch","venue":"mcdonalds","items":[{"name":"中薯条","quantity":0.5,"source":"official","nutrition":{"kcal":null,"protein_g":null,"carb_g":null,"fat_g":null}}]}
 ```
 
 nutrition 是一整份的营养，quantity 是实际吃掉份数，支持半份；null 为未知，不能默认为零。zero quantity 不增加摄入。source 可为 official、official_web、estimated 或 manual；manual 不意味着已获官方验证。网页补充保留对应 evidence；估算区间不转成点值，保持未知标记与来源。已记录同 ID 再次写入会覆盖原记录，补一餐必须用新 ID。
+
+`venue` 为 `mcdonalds`／`other`／`unspecified`，不填为 unspecified；月年吃麦营养只计明确 mcdonalds。`assessment_context` 由代码自动保存录入时的模板和目标，不接受外部伪造；同 ID 同日同餐段纠错保留原目标。月年长图、全天确认与历史口径见 [period-recap.md](period-recap.md)。
 
 ## Bill
 

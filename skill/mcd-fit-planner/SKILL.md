@@ -1,6 +1,6 @@
 ---
 name: mcd-fit-planner
-description: 根据预先录入的循环训练日与营养目标推荐麦当劳搭配，比较替换方案的价格和营养，记录实际摄入与月年消费。用户要按饮食计划吃麦当劳、顺延训练日或查看吃麦账本时使用。
+description: 根据循环训练日与营养目标推荐麦当劳搭配，比较套餐价格和营养，记录实际摄入与消费，生成月末年末吃麦网页及分享长图。用户要按计划吃麦、顺延训练日、查账本或回顾吃麦与健身目标时使用。
 ---
 
 # 麦当劳饮食计划助手
@@ -53,9 +53,17 @@ description: 根据预先录入的循环训练日与营养目标推荐麦当劳�
 
 饮食 `record-intake` 按实际食用份数记，来源区分 official / official_web / estimated / manual，并保留网页证据。订单生成时不记成已吃；用户确认吃了什么后再记。同一记录 ID 更新代表修正。未知营养与估算必须保留；区间不擅自转成点值。
 
+摄入记录明确填写 `venue: mcdonalds / other / unspecified`，其他餐食不当作吃麦营养。代码保存录入时目标快照，旧记录不拿今天的计划回填。用户明确确认全天吃喝已记全，才执行 `close-day --complete yes`；`coverage` 仅表示截至目前完整。新增或纠错会撤销该日全天确认。
+
 订单通过 `query-order` / `order-list` 核对后，由适配器 `orders` 转换并 `import-bills` 合并；手工补记用 `record-bill`。只确认付款时录入 paid，未付款记录 pending 且 paid_cents=0。以相同非敏感账户别名和订单号生成 SHA-256 稳定账单 ID，不把原始订单号存入账本。部分退款/全额退款累计更新同一条，避免重复。取消状态无法证明是否付过款时留为 unresolved，不推测为零支出。已付款取消应保留付款，退款确认后再更新。消费日期沿用原订单日期。先前的饮食记录不随退款自动删除。
 
 `report --period YYYY-MM` / `YYYY` 和 `export` 查询月年账本。只说“本地已记录消费”，不能把近期订单接口当完整年度历史。账户凭证、地址、手机号、支付链接不写入账本。下载 CSV 只保存账单，不含 Token。
+
+## 月年总结与宿主接入
+
+用户要月末／年末吃麦总结图时，读取 [period-recap.md](references/period-recap.md)，运行 `period_recap.py --db <固定账本> --period YYYY[-MM] --output <网页> --svg <长图> --png <图片>`。只读真实账本，展示消费、常点榜、实际吃麦营养、已保存目标评价与缺失情况。无数据不编造，估算与未记录日期不算可核实达标；一餐不能证明全天或训练效果达标。交付 HTML 和实际成功生成的图片链接；可美化版式但保留计算事实，不自动分享。
+
+WorkBuddy、Codex 与基于 DeepSeek 的 Agent 接入见 [hosts.md](references/hosts.md)。DeepSeek 需要支持 MCP、技能文件和本地 Python 的宿主，不能将普通聊天窗口写成直接可安装。已有连接器设置保留，只合并所需配置；总结功能不需要模型 API Key。
 
 ## 下单边界
 
