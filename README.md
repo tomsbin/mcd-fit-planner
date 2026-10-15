@@ -4,7 +4,7 @@
 
 基于麦当劳中国官方 MCP 的 Agent Skill。默认优先比较套餐，同时看实际应付、热量、蛋白质、碳水和脂肪；支持临时休息顺延、本地消费账本，以及月末／年末「吃麦手账」网页与分享长图。
 
-当前版本 **0.8.0**。适合已有饮食目标、希望减少每天重复选择和记录的人。支持 WorkBuddy、Codex，以及具备 MCP 和本地 Python 执行能力的 DeepSeek Agent 宿主。
+当前版本 **0.8.1**。适合已有饮食目标、希望减少每天重复选择和记录的人。支持 WorkBuddy、Codex，以及具备 MCP 和本地 Python 执行能力的 DeepSeek Agent 宿主。
 
 ## 能做什么
 
@@ -58,7 +58,11 @@ python -X utf8 demo.py
 
 ## 月末／年末吃麦手账
 
-生成暖色手账网页和 **1080×1780 分享长图**，展示实际消费、购买常点榜、实际摄入与训练目标结果。网页支持结果筛选、每日明细和 PNG／SVG 下载；全部资源自包含，可离线打开。
+生成分章节回顾网页和 **1080×1780 分享长图**。从封面、消费小票、常点席位，到饮食目标和保存分享，一屏讲一件事；采用大字号、留白与麦当劳中国官网商品配图。网页支持章节导航、键盘翻页、展开每日明细和 PNG／SVG 下载；模板与商品图均内嵌，可离线打开，配图来源见[第三方说明](skill/mcd-fit-planner/references/third-party-notices.md)。
+
+![吃麦回顾网页封面：合成示例](examples/recaps/web-cover.png)
+
+[手机版封面](examples/recaps/mobile-cover.png) · 以下是可导出的月度／年度分享长图：
 
 <a href="examples/recaps/month.png"><img src="examples/recaps/month.png" width="400" alt="月度吃麦手账合成示例"></a>
 <a href="examples/recaps/year.png"><img src="examples/recaps/year.png" width="400" alt="年度吃麦手账合成示例"></a>
@@ -135,6 +139,6 @@ python -X utf8 build.py
 - [Codex 与 DeepSeek Agent 接入](skill/mcd-fit-planner/references/hosts.md)
 - [月年总结图与统计口径](skill/mcd-fit-planner/references/period-recap.md)
 
-本项目采用 [MIT 许可](LICENSE)。优惠门槛解析改编自 MIT 授权的 `mcd-coupon-strategist`，来源、修改说明及完整许可见 [第三方声明](skill/mcd-fit-planner/references/third-party-notices.md)。
+项目代码采用 [MIT 许可](LICENSE)。商品图片版权归原权利人所有，不包含在代码 MIT 许可中。优惠门槛解析改编自 MIT 授权的 `mcd-coupon-strategist`，配图来源、修改说明及完整许可见 [第三方声明](skill/mcd-fit-planner/references/third-party-notices.md)。
 
 本项目为非官方参赛作品，与麦当劳不存在官方产品或背书关系。规则见 [官方活动仓库](https://github.com/M-China/mcd-developer-innovation-challenge)，参赛声明使用官方原文。

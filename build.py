@@ -11,6 +11,7 @@ with ZipFile(output, "w", ZIP_DEFLATED) as archive:
     paths += sorted((skill / "scripts").glob("*.py"))
     paths += sorted((skill / "references").glob("*.md"))
     paths += sorted((skill / "assets").glob("*.json"))
+    paths += [skill / "assets" / name for name in ("recap.html", "recap.css", "recap.js", "big-mac-official.png")]
     for path in paths:
         archive.write(path, "mcd-fit-planner/" + path.relative_to(skill).as_posix())
 print(output)
@@ -22,7 +23,7 @@ _, frontmatter, body = source.split("---", 2)
 extra = '''display_name: 麦当劳饮食计划助手
 description_zh: 按循环饮食目标推荐麦当劳搭配，比较套餐营养与价格，生成月年吃麦与健身目标网页长图。
 description_en: Plan McDonald's meals around a saved training cycle, compare bundles, and create monthly or yearly intake, spending and nutrition-goal recap cards.
-version: 0.8.0
+version: 0.8.1
 author: mcd-fit-planner contributors
 '''
 with ZipFile(workbuddy, "w", ZIP_DEFLATED) as archive:

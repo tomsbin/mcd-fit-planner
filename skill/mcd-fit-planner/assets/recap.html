@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'">
+<title>$period_label · 吃麦的那些日子</title>
+<style>$stylesheet
+:root{--food-image:url('$food_image')}
+</style></head><body data-period="$period">
+<header class="site-header"><a class="wordmark" href="#cover">MCD / REPLAY</a><span class="header-edition">$edition<br>$period_label</span><a class="header-link" href="#ending">保存这份回顾 ↗</a></header>
+<p class="demo-note">$demo_label</p>
+<nav class="chapter-nav" aria-label="回顾章节"><a href="#cover" aria-label="第一章：吃麦的那些日子" aria-current="true">01</a><a href="#spending" aria-label="第二章：消费">02</a><a href="#favorites" aria-label="第三章：常点餐品">03</a><a href="#goals" aria-label="第四章：饮食目标">04</a><a href="#ending" aria-label="第五章：保存分享">05</a></nav>
+<main>
+<section class="scene cover" id="cover" aria-labelledby="cover-title"><div class="inner">
+<div class="cover-grid"><div class="cover-copy"><p class="eyebrow">$period_label / 我的吃麦回顾</p><h1 id="cover-title">吃麦的<br><em>那些日子。</em></h1><p class="lede">$this_period，你记下了 <b>$recorded_days</b> 个吃麦的日子。<br>点过的餐，花过的钱，<br>还有和自己计划对照过的每一顿。</p><a class="paper-button dark" href="#spending">翻开这份回顾 <span aria-hidden="true">↓</span></a></div>
+<figure class="cover-visual"><span class="cover-year" aria-hidden="true">$year</span><div class="food-cutout" role="img" aria-label="麦当劳中国官网巨无霸商品配图"></div><div class="edition-seal" aria-hidden="true"><strong>$seal</strong><span>REPLAY</span></div><figcaption class="image-caption">巨无霸商品图 · 视觉配图</figcaption></figure></div>
+<div class="cover-bottom"><p>FROM YOUR LOCAL FOOD JOURNAL<br>只写下真实留下的记录。</p><a class="next-scene" href="#spending">往下翻，一起回看 <span aria-hidden="true">↓</span></a></div>
+</div></section>
+<section class="scene spending" id="spending" aria-labelledby="spending-title"><div class="inner spend-layout">
+<div class="reveal"><p class="eyebrow">01 / 那些吃麦的小票</p><h2 id="spending-title">这份喜欢，<br>一共花了</h2><p class="amount">¥$net</p><p class="lede">账本里，留下了 <strong>$paid_count</strong> 笔付款记录。<br>扣去已确认的退款，单均净支出 ¥$average。</p><div class="spend-chart" role="img" aria-label="$chart_label">$spending_bars</div><div class="spend-labels"><span>$chart_start</span><span>$chart_end / $chart_unit</span></div><p class="small-note">只统计本地已有账单。待付款不计支出；退款计回原消费日期。</p></div>
+<aside class="receipt reveal" aria-label="本期消费小票"><p class="receipt-head">MCD FIT PLANNER</p><p class="receipt-title">一张吃麦小票</p><p class="receipt-foot">$period_label / LOCAL RECORDS</p><hr class="rule"><dl><div class="receipt-row"><dt>付款订单</dt><dd>$paid_count 笔</dd></div><div class="receipt-row"><dt>原始已付</dt><dd>¥$gross</dd></div><div class="receipt-row"><dt>确认退款</dt><dd>− ¥$refund</dd></div><div class="receipt-row total"><dt>净支出</dt><dd>¥$net</dd></div><div class="receipt-row"><dt>另有待付款</dt><dd>$pending_count 笔</dd></div></dl><div class="barcode" aria-hidden="true"></div><p class="receipt-foot">只是回顾，不是付款凭证。</p></aside>
+</div><span class="scene-index">01 / THE RECEIPTS</span></section>
+<section class="scene favorites" id="favorites" aria-labelledby="favorites-title"><div class="inner favorites-layout">
+<div class="reveal"><p class="eyebrow">02 / 你的常点席位</p><h2 id="favorites-title">$favorite_heading</h2><p class="favorite-name">$favorite_name</p><p class="favorite-count">$favorite_sentence</p><p class="small-note">榜单按已付款且未全额退款的购买份数统计；购买不等于实际食用。</p></div>
+<div class="reveal"><div class="order-slip" aria-hidden="true"><span class="order-slip-label">YOUR USUAL ORDER</span><strong>$rank_number</strong><p>$favorite_memo</p><span class="order-slip-foot">$period / 常点榜</span></div><ol class="rank-list" aria-label="常点餐品排行">$favorite_rows</ol></div>
+</div><span class="scene-index">02 / THE USUAL, PLEASE</span></section>
+<section class="scene goals" id="goals" aria-labelledby="goals-title"><div class="inner">
+<div class="goals-layout"><div class="reveal"><p class="eyebrow">03 / 和自己的计划碰个面</p><h2 id="goals-title">当时的目标，<br>现在对照一下。</h2><p class="goal-percent">$percent</p><p class="goal-caption">可核实达标率 / 分母 $verified_count 餐</p><div class="goal-strip" aria-hidden="true">$goal_strip</div><p class="goal-explanation">$goal_sentence<br>缺失与估算不计入可核实达标率；超出和不足可能同时存在。</p></div>
+<div class="reveal"><p class="goal-subtitle">按照录入时的个人训练、高碳或休息目标，核对已记录餐食。</p><div class="goal-counts"><div class="goal-cell"><strong>$within</strong><span>餐符合当时目标</span></div><div class="goal-cell warn"><strong>$above</strong><span>餐营养素超出目标</span></div><div class="goal-cell warn"><strong>$below</strong><span>餐营养素低于目标</span></div><div class="goal-cell unknown"><strong>$estimated</strong><span>餐按估算符合目标</span></div><div class="goal-cell unknown"><strong>$unassessed</strong><span>餐营养或目标待核实</span></div></div><p class="daily-line">确认全天录全 <strong>$daily_total</strong> 天，其中达标 <strong>$daily_within</strong> 天、估算达标 <strong>$daily_estimated</strong> 天。<br>另有 $unclosed_days 个记录日未确认全天完整，不作全天判断。</p><a class="show-details" href="#details">查看每餐、每天的实际值与目标 ↗</a></div></div>
+<p class="nutrition-title">实际吃麦摄入 / 按吃掉的份数计算</p><div class="nutrition-strip reveal">$nutrient_cells</div><p class="goal-explanation">只累计明确标记为麦当劳的食用记录。未知显示已知下限，估算保留区间；不从付款记录推断已经吃掉。</p>
+</div><span class="scene-index">03 / YOUR OWN PLAN</span></section>
+<section class="scene ending" id="ending" aria-labelledby="ending-title"><div class="inner ending-layout">
+<div class="reveal"><p class="eyebrow">04 / 给这段日子留一张底</p><h2 id="ending-title">关于吃麦的<br>这些小事，<br>下次接着记。</h2><p class="lede">把这份回顾装进一张长图，<br>留给下个月，或者下一年的自己。</p><div class="actions"><button id="png-download" class="paper-button dark">保存分享长图 <span aria-hidden="true">↗</span></button><button id="svg-download" class="paper-button">保存 SVG</button></div><span id="message" role="status" aria-live="polite"></span><a class="show-details" href="#details">展开完整记录与统计说明</a></div>
+<aside class="share-ticket reveal"><span class="ticket-tape" aria-hidden="true"></span><p class="ticket-date">$period / MY MCD REPLAY</p><h3>吃麦的<br>那些日子。</h3><div class="ticket-facts"><div>有记录的吃麦日 <b>$recorded_days 天</b></div><div>本地净支出 <b>¥$net</b></div><div>可核实达标率 <b>$percent</b></div></div><p class="ticket-foot">$ticket_note</p></aside>
+</div><span class="scene-index">04 / KEEP THIS CHAPTER</span></section>
+</main>
+<details class="details" id="details"><summary>完整记录，和这份回顾的统计方式</summary><div class="detail-content">
+<div class="table-tools"><h3>吃麦餐食 · 目标明细</h3><label>筛选 <select id="filter"><option value="all">全部结果</option><option value="within">达标</option><option value="estimated_within">估算达标</option><option value="outside">超出或不足</option><option value="unknown">待核实或未设目标</option></select></label></div><p>每行合并同一天、同餐段的全部已记录食物，也包括该餐其他来源的食物。</p><div class="scroll"><table><thead><tr><th>日期</th><th>餐段</th><th>当时模板</th><th>结果</th><th>实际 / 目标</th></tr></thead><tbody id="meal-rows">$meal_rows</tbody></table></div>
+<h3>全天记录 · 另行核对</h3><p>只有用户确认全天吃喝录全的日期才判断全天目标。新增或纠错会撤销该日确认；一餐达标不等于全天或训练效果达标。</p><div class="scroll"><table><thead><tr><th>日期</th><th>全天录全</th><th>结果</th><th>实际 / 目标</th></tr></thead><tbody>$daily_rows</tbody></table></div>
+<h3>统计说明</h3><ul>$notes</ul><p>未标明食物来源的记录 $unclassified 条，未计入吃麦摄入。$privacy_note</p><p><a class="source-link" href="https://www.mcdonalds.com.cn/product/Big-Mac" target="_blank" rel="noopener noreferrer">商品图片来源：麦当劳中国官网 · 巨无霸</a>。商品图仅作视觉配图，不代表每一份订单的实际餐品；原图版权归原权利人所有。</p>
+</div></details><footer class="site-footer"><span>MCD FIT PLANNER / PERSONAL REPLAY</span><span>本机生成 · 非麦当劳官方作品</span></footer>
+<div class="poster-export" id="poster" aria-hidden="true">$poster</div>
+<script>$javascript</script></body></html>
