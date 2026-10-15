@@ -1,0 +1,140 @@
+{
+  "start_date": "2026-10-14",
+  "cycle": [
+    "训练A",
+    "高碳训练B",
+    "计划休息",
+    "训练C"
+  ],
+  "rest_template": "计划休息",
+  "defaults": {
+    "store_code": "DEMO",
+    "context": "演示自取",
+    "excluded_ids": [],
+    "required_ids": []
+  },
+  "templates": {
+    "训练A": {
+      "daily": {
+        "kcal_max": 2200
+      },
+      "meals": {
+        "breakfast": {
+          "budget_cents": 2500,
+          "target": {
+            "kcal_min": 300,
+            "kcal_max": 550
+          }
+        },
+        "lunch": {
+          "budget_cents": 3500,
+          "target": {
+            "kcal_min": 500,
+            "kcal_max": 750,
+            "protein_g_min": 30,
+            "fat_g_max": 25
+          }
+        },
+        "dinner": {
+          "budget_cents": 3500,
+          "target": {
+            "kcal_min": 450,
+            "kcal_max": 750,
+            "protein_g_min": 25
+          }
+        }
+      }
+    },
+    "高碳训练B": {
+      "daily": {
+        "kcal_max": 2400
+      },
+      "meals": {
+        "breakfast": {
+          "budget_cents": 2500,
+          "target": {
+            "kcal_min": 300,
+            "kcal_max": 550
+          }
+        },
+        "lunch": {
+          "budget_cents": 3500,
+          "target": {
+            "kcal_min": 600,
+            "kcal_max": 850,
+            "protein_g_min": 25,
+            "carb_g_min": 80
+          }
+        },
+        "dinner": {
+          "budget_cents": 3500,
+          "target": {
+            "kcal_min": 450,
+            "kcal_max": 750,
+            "protein_g_min": 25
+          }
+        }
+      }
+    },
+    "计划休息": {
+      "daily": {
+        "kcal_max": 2000
+      },
+      "meals": {
+        "breakfast": {
+          "budget_cents": 2500,
+          "target": {
+            "kcal_min": 300,
+            "kcal_max": 550
+          }
+        },
+        "lunch": {
+          "budget_cents": 3500,
+          "target": {
+            "kcal_min": 400,
+            "kcal_max": 650,
+            "protein_g_min": 25
+          }
+        },
+        "dinner": {
+          "budget_cents": 3500,
+          "target": {
+            "kcal_min": 450,
+            "kcal_max": 750,
+            "protein_g_min": 25
+          }
+        }
+      }
+    },
+    "训练C": {
+      "daily": {
+        "kcal_max": 2200
+      },
+      "meals": {
+        "breakfast": {
+          "budget_cents": 2500,
+          "target": {
+            "kcal_min": 300,
+            "kcal_max": 550
+          }
+        },
+        "lunch": {
+          "budget_cents": 3500,
+          "target": {
+            "kcal_min": 500,
+            "kcal_max": 750,
+            "protein_g_min": 30
+          }
+        },
+        "dinner": {
+          "budget_cents": 3500,
+          "target": {
+            "kcal_min": 450,
+            "kcal_max": 750,
+            "protein_g_min": 25
+          }
+        }
+      }
+    }
+  }
+}

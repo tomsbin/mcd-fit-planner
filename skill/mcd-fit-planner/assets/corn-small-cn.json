@@ -1,0 +1,19 @@
+{
+  "source": "official_web",
+  "basis": "per_serving",
+  "nutrition": {
+    "energy_kj": 223,
+    "protein_g": 2,
+    "carb_g": 7,
+    "fat_g": 1
+  },
+  "evidence": {
+    "url": "https://www.mcdonalds.com.cn/product/Corn-Cup/",
+    "product_name": "玉米杯",
+    "serving": "小杯，单份",
+    "region": "CN",
+    "data_date": "2025-04",
+    "checked_at": "2026-10-15",
+    "method": "官方小规格表按单份计量；热量从 223 kJ 除以 4.184 换算 kcal；未用宏量营养素反推替换官方能量"
+  }
+}

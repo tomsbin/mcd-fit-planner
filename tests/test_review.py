@@ -1,0 +1,63 @@
+import copy
+import sys
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from demo import core, sample_snapshot
+
+
+class BasketReviewTests(unittest.TestCase):
+    def setUp(self):
+        self.snapshot = sample_snapshot()
+
+    def selection(self, identifier, price):
+        items = [{"id": identifier, "quantity": 1}]
+        return {"items": items, "quote": {"key": core.candidate_key(items), "kind": "demo", "store_code": "DEMO", "context": "演示自取", "total_cents": price, "quoted_at": "2026-10-14T12:00:00+08:00"}}
+
+    def test_no_comparison_is_not_no_recommendation(self):
+        result = core.review_basket(self.snapshot, self.selection("bundle-zero", 3000), [], {"bundles_checked": False, "coupons_checked": True})
+        self.assertEqual(result["status"], "incomplete")
+        self.assertFalse(result["can_finalize"])
+
+    def test_checked_but_no_better_option_explicitly_returns_none(self):
+        result = core.review_basket(self.snapshot, self.selection("bundle-zero", 3000), [self.selection("bundle-juice", 3300)], {"bundles_checked": True, "coupons_checked": True})
+        self.assertEqual(result["status"], "no_better_found")
+        self.assertEqual(result["replacement_recommendations"], [])
+        self.assertTrue(result["can_finalize"])
+
+    def test_replacement_is_not_same_basket_discount(self):
+        result = core.review_basket(self.snapshot, self.selection("bundle-juice", 3000), [self.selection("bundle-zero", 2800)], {"bundles_checked": True, "coupons_checked": True}, must_keep=["chicken"])
+        self.assertEqual(result["status"], "changes_required")
+        candidate = result["replacement_recommendations"][0]
+        self.assertEqual(candidate["removed"][0]["id"], "juice")
+        self.assertEqual(candidate["added"][0]["id"], "zero")
+        self.assertEqual(candidate["price_delta_cents"], -200)
+
+    def test_equivalent_coupon_quote_and_unknown_delta(self):
+        result = core.review_basket(self.snapshot, self.selection("unknown", 3000), [self.selection("unknown", 2500)], {"bundles_checked": True, "coupons_checked": True})
+        self.assertEqual(result["status"], "better_equivalent_found")
+        self.assertIsNone(result["equivalent_recommendations"][0]["nutrition_delta"]["kcal"])
+
+    def test_missing_quote_and_invalid_membership_offer(self):
+        missing = self.selection("bundle-zero", 2500); missing.pop("quote")
+        result = core.review_basket(self.snapshot, self.selection("bundle-juice", 3000), [missing], {"bundles_checked": True, "coupons_checked": True})
+        self.assertEqual(result["status"], "incomplete")
+        member = self.selection("bundle-zero", 2500); member["requires_membership_purchase"] = True
+        result = core.review_basket(self.snapshot, self.selection("bundle-juice", 3000), [member], {"bundles_checked": True, "coupons_checked": True})
+        self.assertEqual(result["status"], "no_better_found")
+
+    def test_required_food_and_nutrition_constraints(self):
+        result = core.review_basket(self.snapshot, self.selection("bundle-juice", 3000), [self.selection("bundle-zero", 2500)], {"bundles_checked": True, "coupons_checked": True}, {"carb_g_min": 80}, ["juice"])
+        self.assertEqual(result["status"], "no_better_found")
+        self.assertTrue(result["rejected"][0]["violations"])
+
+    def test_wrong_store_quote_rejected(self):
+        original = self.selection("bundle-zero", 3000)
+        original["quote"]["store_code"] = "other"
+        with self.assertRaises(ValueError): core.review_basket(self.snapshot, original, [], {})
+
+
+if __name__ == "__main__":
+    unittest.main()

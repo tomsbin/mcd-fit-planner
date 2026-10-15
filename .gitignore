@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+data/
+dist/
+*.local.*
+*.sqlite3*
+.env
+.env.*
+mcp.json
