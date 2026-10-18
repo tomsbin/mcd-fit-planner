@@ -1,12 +1,38 @@
-# 麦当劳饮食计划助手 · mcd-fit-planner
+<div align="center">
 
-**把训练与饮食计划录入一次，之后直接问：今天吃哪份麦当劳套餐？**
+**MCD FIT PLANNER · 吃麦，也有自己的节奏**
 
-基于麦当劳中国官方 MCP 的 Agent Skill。默认优先比较套餐，同时看实际应付、热量、蛋白质、碳水和脂肪；支持临时休息顺延、本地消费账本，以及月末／年末「吃麦手账」网页与分享长图。
+# 今天吃麦，刚好合拍。
 
-当前版本 **0.8.2**。适合已有饮食目标、希望减少每天重复选择和记录的人。支持 WorkBuddy、Codex，以及具备 MCP 和本地 Python 执行能力的 DeepSeek Agent 宿主。
+提前记住你的训练计划，点餐时比较套餐，月末把吃过的日子整理成手账。
 
-## 能做什么
+[![Release](https://img.shields.io/github/v/release/tomsbin/mcd-fit-planner?style=flat-square&color=786451&label=release)](https://github.com/tomsbin/mcd-fit-planner/releases/latest)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-786451?style=flat-square)](#一分钟离线试玩)
+[![License](https://img.shields.io/badge/code-MIT-786451?style=flat-square)](LICENSE)
+
+**[下载技能](https://github.com/tomsbin/mcd-fit-planner/releases/latest) · [开始使用](#安装到-workbuddy) · [吃麦手账](#月末年末吃麦手账) · [接入其他-agent](#codex-与-deepseek-agent)**
+
+WorkBuddy / Codex / 支持 MCP 与本地 Python 的 DeepSeek Agent
+
+<img src="examples/recaps/web-cover.png" width="960" alt="吃麦手账网页封面，合成数据演示">
+
+<sub>麦当劳饮食计划助手 · 基于麦当劳中国官方 MCP 的非官方 Agent Skill · 预览均为合成数据</sub>
+
+</div>
+
+## 从今天吃什么，到这一年吃得怎么样
+
+| 先记住你 | 帮你选一餐 | 留下吃麦手账 |
+| :--- | :--- | :--- |
+| 保存训练、高碳与休息日目标，临时休息顺延计划。 | 默认优先比较套餐，同时看实际应付与整餐营养。 | 记录实际摄入和消费，生成月度、年度网页与分享长图。 |
+
+> “今天训练日，保留我想吃的汉堡，看看套餐怎么搭更划算，也更接近我的目标。”
+
+当前版本 **0.8.3**。提前录入已有饮食目标后，日常点餐即可沿用计划；每次下单前展示价格、组成和营养差异，由你确认。
+
+<details>
+<summary><strong>展开完整功能：套餐、营养、计划与账本</strong></summary>
+
 
 | 场景 | 行为 |
 |---|---|
@@ -22,6 +48,8 @@
 | 回看健身饮食目标 | 按历史训练／高碳／休息目标，区分达标、估算、超出、不足与未知；全天录全后单独核对 |
 
 套餐发现默认覆盖相关商品与限额内超值搭配。缺少相关套餐详情或可行套餐未核价时，不能进入下单预览；不能只勾“已检查”就放行。零元应付先列为待核实，不自动当成免费订单。
+
+</details>
 
 ## 一分钟离线试玩
 
@@ -60,14 +88,17 @@ python -X utf8 demo.py
 
 生成分章节回顾网页和 **1080×1780 分享长图**。从封面、消费小票、常点席位，到饮食目标和保存分享，一屏讲一件事；整套采用统一米白纸色、灰褐图表、衬线排版与麦当劳中国官网商品配图。网页支持章节导航、键盘翻页、展开每日明细和 PNG／SVG 下载；模板与商品图均内嵌，可离线打开，配图来源见[第三方说明](skill/mcd-fit-planner/references/third-party-notices.md)。
 
-![吃麦回顾网页封面：合成示例](examples/recaps/web-cover.png)
-
 ![消费、常点、目标与分享四章：合成示例](examples/recaps/chapters-preview.png)
 
 [手机版封面](examples/recaps/mobile-cover.png) · 以下是可导出的月度／年度分享长图：
 
-<a href="examples/recaps/month.png"><img src="examples/recaps/month.png" width="400" alt="月度吃麦手账合成示例"></a>
-<a href="examples/recaps/year.png"><img src="examples/recaps/year.png" width="400" alt="年度吃麦手账合成示例"></a>
+<details>
+<summary>查看月度与年度分享长图</summary>
+
+<a href="examples/recaps/month.png"><img src="examples/recaps/month.png" width="360" alt="月度吃麦手账合成示例"></a>
+<a href="examples/recaps/year.png"><img src="examples/recaps/year.png" width="360" alt="年度吃麦手账合成示例"></a>
+
+</details>
 
 上图**全部为合成演示数据**，不含个人账本。下载 [月度网页](examples/recaps/month.html)／[年度网页](examples/recaps/year.html)后用浏览器打开；GitHub 文件页不直接运行 HTML。
 

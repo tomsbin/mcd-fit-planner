@@ -35,4 +35,19 @@
 .share-ticket{transform:none;border-color:#c9c0b3;box-shadow:0 15px 50px #3f33250c}
 .share-ticket h3{font-family:var(--editorial);font-size:42px;font-weight:400;letter-spacing:-1px;line-height:1.4}
 .paper-button:hover{background:#4f4034;border-color:#4f4034}
+/* Soft edges on objects and controls, while chapter typography stays open. */
+.paper-button{border-radius:999px;transition:background .2s ease,border-color .2s ease,box-shadow .2s ease}
+.paper-button:hover{box-shadow:0 5px 16px #3f332514}
+.receipt{border-radius:24px;border:1px solid #e5ddd0}
+.receipt:before,.receipt:after{display:none}
+.order-slip{border-radius:28px;background:#fbf9f480}
+.share-ticket{border-radius:28px}
+.spend-bar{border-radius:5px 5px 0 0}
+.goal-strip,.goal-strip span{border-radius:999px;overflow:hidden}
+.table-tools select{border-radius:12px;background:var(--surface)}
+.scroll{border:1px solid var(--line);border-radius:18px;margin-top:18px}
+thead{background:#ece6da80}
+tbody tr:last-child td{border-bottom:0}
+.details>summary{border:1px solid var(--line);border-radius:18px;padding:18px 22px;background:#fbf9f480}
+@media(prefers-reduced-motion:reduce){.paper-button{transition:none}}
 @media(max-width:620px){.scene:not(.cover)::before{left:6vw;right:9vw}.scene:not(.cover) h2{font-size:clamp(34px,8.5vw,44px)}.order-slip{min-height:255px}}
