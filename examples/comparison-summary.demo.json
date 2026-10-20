@@ -1,0 +1,185 @@
+{
+  "synthetic_demo": true,
+  "note": "合成价格，不代表当前门店优惠；改饮料需要用户确认。",
+  "comparison_summary": {
+    "comparison_complete": true,
+    "status": "savings_found",
+    "baseline_payable_cents": 3000,
+    "baseline_nutrition": {
+      "kcal": 700.0,
+      "protein_g": 35.0,
+      "carb_g": 99.0,
+      "fat_g": 19.0
+    },
+    "baseline_nutrition_bounds": {
+      "kcal": {
+        "min": 700.0,
+        "max": 700.0
+      },
+      "protein_g": {
+        "min": 35.0,
+        "max": 35.0
+      },
+      "carb_g": {
+        "min": 99.0,
+        "max": 99.0
+      },
+      "fat_g": {
+        "min": 19.0,
+        "max": 19.0
+      }
+    },
+    "baseline_unknown_nutrients": [],
+    "same_contents": {
+      "key": "b651322968a2439ffff6",
+      "label": "方案",
+      "basket_relation": "same_contents",
+      "payable_cents": 2700,
+      "savings_cents": 300,
+      "savings_percent": 10.0,
+      "nutrition": {
+        "kcal": 700.0,
+        "protein_g": 35.0,
+        "carb_g": 99.0,
+        "fat_g": 19.0
+      },
+      "nutrition_bounds": {
+        "kcal": {
+          "min": 700.0,
+          "max": 700.0
+        },
+        "protein_g": {
+          "min": 35.0,
+          "max": 35.0
+        },
+        "carb_g": {
+          "min": 99.0,
+          "max": 99.0
+        },
+        "fat_g": {
+          "min": 19.0,
+          "max": 19.0
+        }
+      },
+      "unknown_nutrients": [],
+      "nutrition_delta": {
+        "kcal": 0.0,
+        "protein_g": 0.0,
+        "carb_g": 0.0,
+        "fat_g": 0.0
+      },
+      "removed": [],
+      "added": [],
+      "requires_change_confirmation": false
+    },
+    "changed_contents": {
+      "key": "f0a851833a14895bf9f7",
+      "label": "方案",
+      "basket_relation": "changed_contents",
+      "payable_cents": 2400,
+      "savings_cents": 600,
+      "savings_percent": 20.0,
+      "nutrition": {
+        "kcal": 570.0,
+        "protein_g": 35.0,
+        "carb_g": 67.0,
+        "fat_g": 19.0
+      },
+      "nutrition_bounds": {
+        "kcal": {
+          "min": 570.0,
+          "max": 570.0
+        },
+        "protein_g": {
+          "min": 35.0,
+          "max": 35.0
+        },
+        "carb_g": {
+          "min": 67.0,
+          "max": 67.0
+        },
+        "fat_g": {
+          "min": 19.0,
+          "max": 19.0
+        }
+      },
+      "unknown_nutrients": [],
+      "nutrition_delta": {
+        "kcal": -130.0,
+        "protein_g": 0.0,
+        "carb_g": -32.0,
+        "fat_g": 0.0
+      },
+      "removed": [
+        {
+          "id": "juice",
+          "name": "演示·果味饮料",
+          "quantity": 1
+        }
+      ],
+      "added": [
+        {
+          "id": "zero",
+          "name": "演示·无糖饮料",
+          "quantity": 1
+        }
+      ],
+      "requires_change_confirmation": true
+    },
+    "lowest_quoted_alternative": {
+      "key": "f0a851833a14895bf9f7",
+      "label": "方案",
+      "basket_relation": "changed_contents",
+      "payable_cents": 2400,
+      "savings_cents": 600,
+      "savings_percent": 20.0,
+      "nutrition": {
+        "kcal": 570.0,
+        "protein_g": 35.0,
+        "carb_g": 67.0,
+        "fat_g": 19.0
+      },
+      "nutrition_bounds": {
+        "kcal": {
+          "min": 570.0,
+          "max": 570.0
+        },
+        "protein_g": {
+          "min": 35.0,
+          "max": 35.0
+        },
+        "carb_g": {
+          "min": 67.0,
+          "max": 67.0
+        },
+        "fat_g": {
+          "min": 19.0,
+          "max": 19.0
+        }
+      },
+      "unknown_nutrients": [],
+      "nutrition_delta": {
+        "kcal": -130.0,
+        "protein_g": 0.0,
+        "carb_g": -32.0,
+        "fat_g": 0.0
+      },
+      "removed": [
+        {
+          "id": "juice",
+          "name": "演示·果味饮料",
+          "quantity": 1
+        }
+      ],
+      "added": [
+        {
+          "id": "zero",
+          "name": "演示·无糖饮料",
+          "quantity": 1
+        }
+      ],
+      "requires_change_confirmation": true
+    },
+    "scope": "仅比较本次已核价且符合限制的候选；改餐品节省不能写成原单优惠，比较未完成不得进入下单确认"
+  }
+}

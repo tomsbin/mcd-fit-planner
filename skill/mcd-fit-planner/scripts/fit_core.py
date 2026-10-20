@@ -793,6 +793,36 @@ def recommend(store, day, meal, snapshot, quotes=None, required=None, excluded=N
     return {**common, "phase": "recommended", "recommendation_status": status, "bundle_readiness": readiness, "bundle_preference": "bundle_first" if prefer_bundles else "single_items_only", "bundle_fallback_reason": fallback, "preferred": next((c for c in choices if preferred and c["key"] == preferred[0]["key"]), None), "choices": choices, "closest": closest, "cheapest": cheapest_choice, "priced_count": len(priced) + len(over_budget), "unquoted_count": len(eligible) - len(priced) - len(over_budget), "over_budget_count": len(over_budget), "scope": "价格比较仅覆盖已计价候选，不能宣称全菜单最低价", "message": "没有已报价且同时满足营养与预算的方案；没有放宽限制" if not choices else "按用户目标筛选，热量较低不自动代表更优"}
 
 
+def basket_summary(original, equivalent, replacements, complete):
+    """Present verified payable differences without confusing swaps with discounts."""
+    def row(candidate, relation):
+        savings = original["total_cents"] - candidate["total_cents"]
+        return {"key": candidate["key"], "label": candidate["label"],
+                "basket_relation": relation, "payable_cents": candidate["total_cents"],
+                "savings_cents": savings,
+                "savings_percent": round(savings * 100 / original["total_cents"], 2),
+                "nutrition": candidate["nutrition"],
+                "nutrition_bounds": candidate["nutrition_bounds"],
+                "unknown_nutrients": candidate["unknown_nutrients"],
+                "nutrition_delta": candidate["nutrition_delta"],
+                "removed": candidate["removed"], "added": candidate["added"],
+                "requires_change_confirmation": relation == "changed_contents"}
+
+    same = row(equivalent[0], "same_contents") if equivalent else None
+    changed = row(replacements[0], "changed_contents") if replacements else None
+    candidates = [r for r in (same, changed) if r]
+    cheapest = min(candidates, key=lambda r: r["payable_cents"]) if candidates else None
+    return {"comparison_complete": complete,
+            "status": "incomplete" if not complete else "savings_found" if candidates else "no_verified_savings",
+            "baseline_payable_cents": original["total_cents"],
+            "baseline_nutrition": original["nutrition"],
+            "baseline_nutrition_bounds": original["nutrition_bounds"],
+            "baseline_unknown_nutrients": original["unknown_nutrients"],
+            "same_contents": same, "changed_contents": changed,
+            "lowest_quoted_alternative": cheapest,
+            "scope": "仅比较本次已核价且符合限制的候选；改餐品节省不能写成原单优惠，比较未完成不得进入下单确认"}
+
+
 def review_basket(snapshot, baseline, alternatives, checks, target=None, must_keep=None, budget_cents=None, exact_contents=False, excluded_ids=None):
     """Distinguish cheaper equivalent baskets, substitutions, none, and unchecked work."""
     catalog = validate_snapshot(snapshot, snapshot["day"])
@@ -876,7 +906,7 @@ def review_basket(snapshot, baseline, alternatives, checks, target=None, must_ke
     equivalent.sort(key=lambda c: c["total_cents"])
     replacements.sort(key=lambda c: c["total_cents"])
     nutrition_recommendations.sort(key=lambda c: (c["total_cents"], fit_score(c, target)))
-    complete = checks.get("bundles_checked") is True and checks.get("coupons_checked") is True and missing_quotes == 0 and checks.get("quote_failure_count", 0) == 0 and checks.get("coupon_unresolved_count", 0) == 0 and checks.get("coupon_pages_complete", True) is True
+    complete = checks.get("bundles_checked") is True and checks.get("coupons_checked") is True and missing_quotes == 0 and checks.get("quote_failure_count", 0) == 0 and checks.get("coupon_unresolved_count", 0) == 0 and checks.get("coupon_pages_complete", True) is True and not checks.get("coupon_variants_truncated", False)
     eligible_bundles = []
     if snapshot.get("bundle_comparison"):
         for c in expand_candidates(snapshot, catalog, must_keep, excluded_ids):
@@ -895,7 +925,8 @@ def review_basket(snapshot, baseline, alternatives, checks, target=None, must_ke
         if nutrition_recommendations:
             message = "已查范围没有更省方案，但有更贴合当前营养目标的方案；请展示价差、餐品变化并取得确认" if any(c["decision"]["nutrition_goal_improved"] for c in nutrition_recommendations) else "已查范围没有更省方案；原单营养尚无法核实，另有符合已录目标的参考方案，不能声称比原单热量或脂肪更低"
     nutrition_recommendation_status = "goal_improvement_available" if any(c["decision"]["nutrition_goal_improved"] for c in nutrition_recommendations) else "target_fit_alternative_available" if nutrition_recommendations else "no_verified_goal_improvement"
-    return {"status": status, "message": message, "can_finalize": complete, "bundle_readiness": readiness, "snapshot_hash": digest(snapshot), "target_hash": digest(target), "budget_cents": budget_cents, "exact_contents": exact_contents, "excluded_ids": excluded_ids, "baseline": original, "equivalent_recommendations": equivalent, "replacement_recommendations": replacements, "nutrition_recommendations": nutrition_recommendations, "nutrition_recommendation_status": nutrition_recommendation_status, "rejected": rejected, "missing_quote_count": missing_quotes, "checked_alternative_count": len(alternatives) - missing_quotes, "checks": checks, "reviewed_prices": reviewed_prices, "nutrition_status": "target_not_configured" if not target else "unknown" if original["unknown_nutrients"] else "known", "scope": "仅覆盖列出的套餐和已核实优惠；其他组合未穷举；rejected包含价格未更省的方案，符合营养目标的改进会单列nutrition_recommendations"}
+    comparison_summary = basket_summary(original, equivalent, replacements, complete)
+    return {"status": status, "message": message, "can_finalize": complete, "comparison_summary": comparison_summary, "bundle_readiness": readiness, "snapshot_hash": digest(snapshot), "target_hash": digest(target), "budget_cents": budget_cents, "exact_contents": exact_contents, "excluded_ids": excluded_ids, "baseline": original, "equivalent_recommendations": equivalent, "replacement_recommendations": replacements, "nutrition_recommendations": nutrition_recommendations, "nutrition_recommendation_status": nutrition_recommendation_status, "rejected": rejected, "missing_quote_count": missing_quotes, "checked_alternative_count": len(alternatives) - missing_quotes, "checks": checks, "reviewed_prices": reviewed_prices, "nutrition_status": "target_not_configured" if not target else "unknown" if original["unknown_nutrients"] else "known", "scope": "仅覆盖列出的套餐和已核实优惠；其他组合未穷举；rejected包含价格未更省的方案，符合营养目标的改进会单列nutrition_recommendations"}
 
 
 def compare(snapshot, before, after):

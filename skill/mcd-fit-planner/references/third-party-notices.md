@@ -1,5 +1,9 @@
 # 第三方来源及许可
 
+## 点餐比价呈现参考
+
+参考 [mai-suanpan](https://github.com/W313997791/mai-suanpan/tree/49cb59a87a421ed9de9a8befe16c1aedc80e41df)（2026-10-20 核查）的套餐与券比较思路、原单与推荐方案对照呈现。`fit_core.py::basket_summary` 为本项目独立实现，未复制该项目代码、提示词、图片或对话；其历史价格、单券限制和实测结论不作为本项目已验证能力。真实优惠以当前门店官方返回为准。
+
 ## 回顾页商品配图与设计参考
 
 `assets/big-mac-official.png` 原样取自[麦当劳中国官网「巨无霸」产品页](https://www.mcdonalds.com.cn/product/Big-Mac)的透明底商品图，核查日期 2026-10-15。原图地址：<https://officiaweb-afd.mcdonalds.com.cn/public/upload/attachment/2022/08/202208081011205699.png>。仅作商品视觉配图，不代表用户实际选择的套餐组成，不用图片推算营养。图片版权归原权利人所有，项目代码的 MIT 许可不覆盖该商品图片；不表示麦当劳官方背书。

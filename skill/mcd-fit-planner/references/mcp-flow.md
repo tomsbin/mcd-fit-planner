@@ -133,3 +133,10 @@ preview 校验比较报告 can_finalize、菜单哈希、营养目标哈希与�
 支付入口使用当次官方返回的payH5Url。它可能需要扫码或唤起官方App，不能承诺在聊天内付款，也不推断其他渠道可支付该MCP订单。付款结果以查询订单核实为准。
 
 支付由用户完成。`query-order` 核对付款后写入账本。create-order 超时可能已成功，先通过订单查询消除不确定性，不自动重试。`order-list` 仅近期历史，逐次用稳定 ID 合并记录，不能承诺一键获取完整一年账单。未确认退款金额不能当作已退款。
+
+
+## 比价摘要（0.8.4）
+
+`review.comparison_summary` 使用原单实际应付为基准，包含 `baseline_payable_cents`、`same_contents`、`changed_contents` 和 `lowest_quoted_alternative`。每个方案给出 `payable_cents`、`savings_cents`、`savings_percent`、`removed`、`added`、整餐 `nutrition`／`nutrition_bounds`／`unknown_nutrients` 和 `nutrition_delta`。百分比是已核价差额除以原单应付，不是券面折扣；未知营养差值仍为 null。最低价方案可能改了餐品，不能冒充同餐品优惠。`requires_change_confirmation=false` 仅表示没有改餐品，仍必须执行通用下单确认。
+
+`comparison_complete=false` 时即使出现暂时更省候选，也不能作为比较完成的结论或进入预览。`coupon_variants_truncated=true` 与查询失败、券信息未核实、分页未完一样阻止完成。多券拆单只有在当前门店响应支持、每单重新计价并合并配送／包装费用后才展示；券不能在多单中重复使用，不以历史示例臆测拆单一定更省。积分兑换和领券需对应用户授权，本地脚本不自动执行这些账户操作。

@@ -58,6 +58,45 @@ class BasketReviewTests(unittest.TestCase):
         original["quote"]["store_code"] = "other"
         with self.assertRaises(ValueError): core.review_basket(self.snapshot, original, [], {})
 
+    def test_truncated_coupon_search_blocks_finalization(self):
+        checks = {"bundles_checked": True, "coupons_checked": True, "coupon_variants_truncated": True}
+        result = core.review_basket(self.snapshot, self.selection("bundle-zero", 3000), [], checks)
+        self.assertEqual(result["status"], "incomplete")
+        self.assertFalse(result["can_finalize"])
+        self.assertEqual(result["comparison_summary"]["status"], "incomplete")
+
+    def test_summary_keeps_equivalent_and_changed_baskets_separate(self):
+        result = core.review_basket(self.snapshot, self.selection("bundle-juice", 3000),
+                                   [self.selection("bundle-juice", 2700), self.selection("bundle-zero", 2400)],
+                                   {"bundles_checked": True, "coupons_checked": True})
+        summary = result["comparison_summary"]
+        self.assertEqual(summary["same_contents"]["savings_percent"], 10)
+        self.assertEqual(summary["same_contents"]["savings_cents"], 300)
+        self.assertFalse(summary["same_contents"]["requires_change_confirmation"])
+        changed = summary["lowest_quoted_alternative"]
+        self.assertEqual(changed["basket_relation"], "changed_contents")
+        self.assertEqual(changed["savings_percent"], 20)
+        self.assertTrue(changed["requires_change_confirmation"])
+        self.assertEqual(changed["removed"][0]["id"], "juice")
+        self.assertEqual(changed["nutrition"], result["replacement_recommendations"][0]["nutrition"])
+
+    def test_summary_unknown_nutrition_does_not_become_zero(self):
+        result = core.review_basket(self.snapshot, self.selection("unknown", 3000),
+                                   [self.selection("unknown", 2500)],
+                                   {"bundles_checked": True, "coupons_checked": True})
+        summary = result["comparison_summary"]
+        self.assertIsNone(summary["same_contents"]["nutrition_delta"]["kcal"])
+        self.assertIn("kcal", summary["same_contents"]["unknown_nutrients"])
+        self.assertEqual(summary["same_contents"]["savings_percent"], 16.67)
+
+    def test_summary_explicitly_reports_no_savings(self):
+        result = core.review_basket(self.snapshot, self.selection("bundle-zero", 3000),
+                                   [self.selection("bundle-juice", 3300)],
+                                   {"bundles_checked": True, "coupons_checked": True})
+        summary = result["comparison_summary"]
+        self.assertEqual(summary["status"], "no_verified_savings")
+        self.assertIsNone(summary["lowest_quoted_alternative"])
+
 
 if __name__ == "__main__":
     unittest.main()
