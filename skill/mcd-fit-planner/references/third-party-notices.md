@@ -1,5 +1,9 @@
 # 第三方来源及许可
 
+## 预算余量与选餐报告参考
+
+参考 [Sam-Hui-dot/mcd-budget-meal](https://github.com/Sam-Hui-dot/mcd-budget-meal/tree/25d5f345862186e9a181339118051cd4418a97e6)（2026-10-24 核查）的预算余量、超预算参考、组成差异及离线报告体验。`meal_report.py`、`assets/meal-report.html` 及推荐引擎的预算参考字段为本项目独立实现，未复制该项目代码、模板、插画、实测数据或对话。保留本项目的训练营养约束与下单流程；对方真实核价不等于本项目验证。
+
 ## 点餐比价呈现参考
 
 参考 [mai-suanpan](https://github.com/W313997791/mai-suanpan/tree/49cb59a87a421ed9de9a8befe16c1aedc80e41df)（2026-10-20 核查）的套餐与券比较思路、原单与推荐方案对照呈现。`fit_core.py::basket_summary` 为本项目独立实现，未复制该项目代码、提示词、图片或对话；其历史价格、单券限制和实测结论不作为本项目已验证能力。真实优惠以当前门店官方返回为准。

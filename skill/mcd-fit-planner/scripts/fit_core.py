@@ -759,7 +759,7 @@ def recommend(store, day, meal, snapshot, quotes=None, required=None, excluded=N
         quote = quote_map.get(candidate["key"])
         if not quote:
             continue
-        candidate = {**candidate, "total_cents": quote["total_cents"], "quoted_at": quote["quoted_at"], "quote": quote}
+        candidate = {**candidate, "total_cents": quote["total_cents"], "quoted_at": quote["quoted_at"], "quote": quote, "budget_remaining_cents": context["budget_cents"] - quote["total_cents"]}
         (over_budget if quote["total_cents"] > context["budget_cents"] else priced).append(candidate)
     best = sorted(priced, key=lambda c: (fit_score(c, context["target"]), c["total_cents"]))
     cheapest = sorted(priced, key=lambda c: (c["total_cents"], fit_score(c, context["target"])))
@@ -788,6 +788,9 @@ def recommend(store, day, meal, snapshot, quotes=None, required=None, excluded=N
         fallback = "没有符合营养目标及必选/排除条件的套餐" if not any(c["ordering_mode"] == "bundle" for c in eligible) else "套餐尚未核价或已核价套餐超出预算；仅展示单点参考，先完成比较"
 
     readiness = bundle_readiness(snapshot, catalog, eligible, priced + over_budget, excluded)
+    over_budget.sort(key=lambda c: (c["total_cents"], fit_score(c, context["target"]), c["key"]))
+    common["over_budget_options"] = [{**c, "over_budget_cents": c["total_cents"] - context["budget_cents"], "requires_budget_confirmation": True} for c in over_budget[:3]]
+    common["closest_over_budget"] = common["over_budget_options"][0] if over_budget else None
     if readiness["status"] == "incomplete":
         common["warnings"].append("相关套餐详情/计价未完成；不能只按单点下单，也不能宣称没有更省套餐")
     return {**common, "phase": "recommended", "recommendation_status": status, "bundle_readiness": readiness, "bundle_preference": "bundle_first" if prefer_bundles else "single_items_only", "bundle_fallback_reason": fallback, "preferred": next((c for c in choices if preferred and c["key"] == preferred[0]["key"]), None), "choices": choices, "closest": closest, "cheapest": cheapest_choice, "priced_count": len(priced) + len(over_budget), "unquoted_count": len(eligible) - len(priced) - len(over_budget), "over_budget_count": len(over_budget), "scope": "价格比较仅覆盖已计价候选，不能宣称全菜单最低价", "message": "没有已报价且同时满足营养与预算的方案；没有放宽限制" if not choices else "按用户目标筛选，热量较低不自动代表更优"}

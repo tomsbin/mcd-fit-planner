@@ -15,6 +15,8 @@ description: 根据循环训练日与营养目标推荐麦当劳搭配，比较�
 
 保留用户指定的主食、份数及配餐要求，用已保存required_ids或明确的--require；必要时使用requested_baskets。不能把“巨无霸换鸡排堡”描述为原单同餐优惠：必须展示换了什么、营养已知下限/缺口、价差，经用户明确同意才能换。套餐营养不符/超预算则解释并给合格参考，不放宽目标。用户明确只单点可在selection设bundle_policy=single_items_only并记录bundle_policy_reason；只买饮料/配餐不自动加整餐。
 
+推荐无预算内方案时，展示 `closest_over_budget` 及 `over_budget_cents`，明确它只是符合其余要求的已核价参考，不自动增加预算。需要选餐页面时读取 [meal-report.md](references/meal-report.md)，运行 `meal_report.py --input <recommend结果JSON> --output <HTML>`。页面展示预算余量、真实组成、整餐营养与两方案变化，修改预算只筛选已有快照；选择超预算参考后须更新用户同意的预算并重新推荐、核价、review 和确认。无合格报价时不虚构兜底。
+
 应付为0的报价当前统一进入待核实，不参与最省/套餐推荐、不自动下单。核查实际选配、可售和券权益，不把0元直接叫免费，也不把它直接断言为不可售。单杯无糖可乐的营养0值和待支付账本0支出不受影响。
 
 ## 一次录入，之后直接推荐
